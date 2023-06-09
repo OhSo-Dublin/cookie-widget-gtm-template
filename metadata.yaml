@@ -2,5 +2,5 @@ homepage: "https://cookieproof.com/"
 documentation: "https://cookieproof.com/"
 versions:
   # latest version
-  - sha: 5807c3fc4067519de4c2fa7dcbd08c5a29fa0461
+  - sha: 62b103cf4a949c361b1c653d387e71bb1f2eaa0e
     changeNotes: Initial release
