@@ -35,7 +35,7 @@ ___TEMPLATE_PARAMETERS___
     "name": "WebsiteId",
     "displayName": "Your website ID",
     "simpleValueType": true,
-    "help": "Log in to your CookieYes account \u003e Click the profile icon at the right top of the screen \u003e Go to Account Settings \u003e Click on the Installation code button associated with your site \u003e Click Copy Code \u003e Copy your website key from the src attribute (e.g. src\u003d\"https://cproof-production.s3.eu-west-1.amazonaws.com/widgets/scripts/YOUR_WEBSITE_ID.js\")."
+    "help": "Log in to your CookieYes account \u003e Click the profile icon at the right top of the screen \u003e Go to Account Settings \u003e Click on the Installation code button associated with your site \u003e Click Copy Code \u003e Copy your website key from the src attribute (e.g. src\u003d\"https://cdn.cookieproof.com/widgets/scripts/YOUR_WEBSITE_ID.js\")."
   }
 ]
 
@@ -46,7 +46,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const queryPermission = require('queryPermission');
 const injectScript = require('injectScript');
 
-const url = 'https://cproof-production.s3.eu-west-1.amazonaws.com/widgets/scripts/'+data.WebsiteId+'.js';
+const url = 'https://cdn.cookieproof.com/widgets/scripts/'+data.WebsiteId+'.js';
 if(queryPermission('inject_script', url)) {
   injectScript(url, data.gtmOnSuccess, data.gtmOnFailure, url);
 }
@@ -69,7 +69,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://cproof-production.s3.eu-west-1.amazonaws.com/widgets/*/*.js"
+                "string": "https://cdn.cookieproof.com/widgets/*/*.js"
               }
             ]
           }
