@@ -2,8 +2,8 @@ homepage: "https://cookieproof.com/"
 documentation: "https://cookieproof.com/"
 versions:
     # latest version
-    - sha: a9c8a90712f29b2f740f087652e94b258928a2cd
-      changeNotes: Changed script url
+    - sha: 6dadd4b0fa0b57d09c9e45cf0c0c755da0130ffa
+      changeNotes: Google consent mode
     # previous versions
     - sha: 62b103cf4a949c361b1c653d387e71bb1f2eaa0e
       changeNotes: Initial release
