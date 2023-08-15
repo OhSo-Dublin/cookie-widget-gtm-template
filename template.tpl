@@ -205,6 +205,7 @@ gtagSet({
     ads_data_redaction: !!data.adsDataRedaction,
     url_passthrough: !!data.urlPassThrough,
 });
+gtagSet('developer_id.dYTZjNT', true);
 
 const onUserConsent = (consent) => {
     
