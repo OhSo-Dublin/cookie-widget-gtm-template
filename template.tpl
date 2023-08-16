@@ -30,7 +30,7 @@ ___TEMPLATE_PARAMETERS___
     "name": "WebsiteId",
     "displayName": "Your website ID",
     "simpleValueType": true,
-    "help": "Log in to your CookieProof account, then click on \u003ci\u003eSettings \u003e Installation\u003c/i\u003e. From the installation script, copy your website ID from the src attribute.\u003cbr/\u003e\n(e.g. src\u003d\"https://cdn.cookieproof.com/widgets/\nscripts/\u003ci\u003eYOUR_WEBSITE_ID\u003c/i\u003e.js\").",
+    "help": "Log in to your \u003ca href\u003d\"https://app.cookieproof.com/\" target\u003d\"_blank\"\u003eCookieProof account\u003c/a\u003e, then click on \u003ci\u003eSettings \u003e Installation\u003c/i\u003e. From the installation script, copy your website ID from the src attribute.\u003cbr /\u003e(e.g. src\u003d\"https://cdn.cookieproof.com/widgets/client\u003cbr/\u003e/\u003ci\u003eYOUR_WEBSITE_ID\u003c/i\u003e/script.js\").",
     "valueHint": "e.g. d0d2072b543b16d6dadc7ccbff6b8072"
   },
   {
@@ -151,15 +151,6 @@ ___TEMPLATE_PARAMETERS___
         "displayName": "Wait for update",
         "simpleValueType": true,
         "help": "Set the number of milliseconds to wait before firing tags waiting for consent.",
-        "valueValidators": [
-          {
-            "type": "POSITIVE_NUMBER",
-            "enablingConditions": []
-          },
-          {
-            "type": "NON_EMPTY"
-          }
-        ],
         "defaultValue": 500,
         "valueUnit": "milliseconds"
       },
@@ -204,11 +195,10 @@ function setConsentInitStates(consentData) {
 gtagSet({
     ads_data_redaction: !!data.adsDataRedaction,
     url_passthrough: !!data.urlPassThrough,
+    "developer_id.dYTZjNT": true,
 });
-gtagSet('developer_id.dYTZjNT', true);
 
 const onUserConsent = (consent) => {
-    
     const consentModeStates = {
         ad_storage: consent.advertisement ? "granted" : "denied",
         analytics_storage: consent.analytics ? "granted" : "denied",
@@ -230,61 +220,63 @@ const stringToJSON = (ckSt) => {
         let cc = ckString[i].split('\\"');
         if (cc[0].indexOf('"id"') !== -1) continue;
         const val = cc[2].replace(":", "").replace('"', "");
-        obj[cc[1]] = val === '1' ? 1 : 0;
+        obj[cc[1]] = val === "1" ? 1 : 0;
     }
 
     return obj;
 };
 
 const settings = getCookieValues(COOKIE_NAME);
-if (typeof settings !== "undefined") {
-    onUserConsent(stringToJSON(settings[0]));
-} else {
-    if (defaultSettings.length > 0) {
-        defaultSettings.forEach((setting) => {
-            const consent = {
-                functionality_storage: setting.functional,
-                personalization_storage: setting.functional,
-                security_storage: setting.security,
-                analytics_storage: setting.analytics,
-                ad_storage: setting.advertisement,
-            };
-            const regions = setting.regions
-                .split(",")
-                .map((region) => region.trim())
-                .filter((region) => region);
-
-            if (regions.length > 0 && regions[0].toLowerCase() !== "all")
-                consent.region = regions;
-            setConsentInitStates(consent);
-        });
+if ( typeof settings !== "undefined" && settings.length > 0 && settings[0].indexOf('"g_consent_mode":true') !== -1 ) {
+    if (settings[0].indexOf('necessary') !== -1) {
+        onUserConsent(stringToJSON(settings[0]));
     } else {
-        setDefaultConsentState({
-            ad_storage: "denied",
-            analytics_storage: "denied",
-            functionality_storage: "denied",
-            personalization_storage: "denied",
-            security_storage: "granted",
-            region: ["ES", "US-AK"],
-            wait_for_update: 500,
-        });
+        if (defaultSettings.length > 0) {
+            defaultSettings.forEach((setting) => {
+                const consent = {
+                    functionality_storage: setting.functional,
+                    personalization_storage: setting.functional,
+                    security_storage: setting.security,
+                    analytics_storage: setting.analytics,
+                    ad_storage: setting.advertisement,
+                };
+                const regions = setting.regions
+                    .split(",")
+                    .map((region) => region.trim())
+                    .filter((region) => region);
+
+                if (regions.length > 0 && regions[0].toLowerCase() !== "all")
+                    consent.region = regions;
+                setConsentInitStates(consent);
+            });
+        } else {
+            setDefaultConsentState({
+                ad_storage: "denied",
+                analytics_storage: "denied",
+                functionality_storage: "denied",
+                personalization_storage: "denied",
+                security_storage: "granted",
+                region: ["ES", "US-AK"],
+                wait_for_update: 500,
+            });
+        }
     }
 }
 
 const onSuccess = () => {
-  callInWindow("onCPUserConsent", onUserConsent);
-  data.gtmOnSuccess();
+    callInWindow("onCPUserConsent", onUserConsent);
+    data.gtmOnSuccess();
 };
 
 const onFailure = () => {
-  data.gtmOnFailure();
+    data.gtmOnFailure();
 };
 
 const url =
-    "https://cdn-staging.cookieproof.com/widgets/client/" +
+    "https://cdn.cookieproof.com/widgets/client/" +
     data.WebsiteId +
     "/script.js";
-    
+
 if (queryPermission("inject_script", url)) {
     injectScript(url, onSuccess, onFailure);
 }
@@ -546,6 +538,10 @@ ___WEB_PERMISSIONS___
               {
                 "type": 1,
                 "string": "url_passthrough"
+              },
+              {
+                "type": 1,
+                "string": "developer_id.dYTZjNT"
               }
             ]
           }
