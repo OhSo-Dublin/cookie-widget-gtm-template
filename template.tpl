@@ -2,7 +2,7 @@
 
 {
   "type": "TAG",
-  "id": "cookieproof",
+  "id": "privabee",
   "version": 1,
   "securityGroups": [],
   "displayName": "PrivaBee Consent Manager",
@@ -30,7 +30,7 @@ ___TEMPLATE_PARAMETERS___
     "name": "WebsiteId",
     "displayName": "Your website ID",
     "simpleValueType": true,
-    "help": "Log in to your \u003ca href\u003d\"https://app.cookieproof.com/\" target\u003d\"_blank\"\u003eCookieProof account\u003c/a\u003e, then click on \u003ci\u003eSettings \u003e Installation\u003c/i\u003e. From the installation script, copy your website ID from the src attribute.\u003cbr /\u003e(e.g. src\u003d\"https://cdn.cookieproof.com/widgets/client\u003cbr/\u003e/\u003ci\u003eYOUR_WEBSITE_ID\u003c/i\u003e/script.js\").",
+    "help": "Log in to your \u003ca href\u003d\"https://app.privabee.com/\" target\u003d\"_blank\"\u003eprivabee account\u003c/a\u003e, then click on \u003ci\u003eSettings \u003e Installation\u003c/i\u003e. From the installation script, copy your website ID from the src attribute.\u003cbr /\u003e(e.g. src\u003d\"https://cdn.privabee.com/widgets/client\u003cbr/\u003e/\u003ci\u003eYOUR_WEBSITE_ID\u003c/i\u003e/script.js\").",
     "valueHint": "e.g. d0d2072b543b16d6dadc7ccbff6b8072"
   },
   {
@@ -273,7 +273,7 @@ const onFailure = () => {
 };
 
 const url =
-    "https://cdn.cookieproof.com/widgets/client/" +
+    "https://cdn.privabee.com/widgets/client/" +
     data.WebsiteId +
     "/script.js";
 
@@ -299,7 +299,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://*.cookieproof.com/widgets/client/*/script.js"
+                "string": "https://*.privabee.com/widgets/client/*/script.js"
               }
             ]
           }
