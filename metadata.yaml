@@ -2,5 +2,5 @@ homepage: "https://privabee.com/"
 documentation: "https://privabee.com/"
 versions:
     # latest version
-    - sha:
-      changeNotes:
+    - sha: 5de437fb526b70eed611bf1af6fe0bb7766c533b
+      changeNotes: brand rename
