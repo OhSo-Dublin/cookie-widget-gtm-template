@@ -182,7 +182,7 @@ const gtagSet = require("gtagSet");
 const updateConsentState = require("updateConsentState");
 const callInWindow = require("callInWindow");
 const getCookieValues = require("getCookieValues");
-const COOKIE_NAME = "cp_consent";
+const COOKIE_NAME = "pb_consent";
 
 const defaultSettings = data.defaultSettings || [];
 const waitForTime = data.waitForTime;
@@ -635,7 +635,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "cp_consent"
+                "string": "pb_consent"
               }
             ]
           }
